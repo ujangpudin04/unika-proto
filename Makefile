@@ -20,7 +20,6 @@ protoc-go:
 	protoc --go_opt=module=${GO_MODULE} --go_out=. \
 	--go-grpc_opt=module=${GO_MODULE} --go-grpc_out=. \
 	./proto/user/*.proto \
-	./proto/pagination/*.proto \
 	./proto/hello/*.proto \
 
 
@@ -64,7 +63,6 @@ protoc-go-gateway:
 	./proto/user/*.proto \
 	./proto/chat/*.proto \
 	./proto/payment/*.proto \
-	./proto/pagination/*.proto \
 	./proto/hello/*.proto \
 
 .PHONY: protoc-openapiv2-gateway
@@ -79,7 +77,6 @@ protoc-openapiv2-gateway:
   	./proto/user/*.proto \
 	./proto/chat/*.proto \
 	./proto/payment/*.proto \
-	./proto/pagination/*.proto \
 	./proto/hello/*.proto \
 
 
