@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+package user;
+
+import "proto/google/type/datetime.proto";
+
+option go_package = "github.com/ujangpudin04/unika/protogen/go/user";
+
+
+message User {
+  string id=1; 
+  string username=2;
+  string email = 3;
+  string password=4;
+  string token=5;
+  string created_at =6 [json_name="created_at"];
+  string updated_at =7 [json_name="updated_at"];
+}
+
+
+message RegisterRequest {
+  string username =1;
+  string email = 2;
+  string password = 3;
+  string confirm_password=4;
+}
+
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+
+message GetUserRequest {
+  string id = 1;
+}
+
+
+message UpdateUserRequest {
+  string id = 1;
+  string username = 2;
+  string email = 3;
+  string password=4;
+}
+
+
+message DeleteUserRequest {
+  string id = 1;
+}
+
+message PageUserRequest {
+  string id = 1;
+}
+
+
+message UserResponse {
+  int32 code = 1;
+  string message = 2;
+  User data = 3;
+}
+
+message Users {
+  repeated User data=2;
+}
+
+
+message FindAllResponse {
+  int32 code= 1;
+  string message= 2;
+  Users data=3;
+}
+
+
+service UserService {
+  rpc Register(RegisterRequest) returns (UserResponse);
+  rpc Login(LoginRequest) returns (UserResponse);
+  rpc GetUser(GetUserRequest) returns (UserResponse);
+  rpc FindAllUser(PageUserRequest) returns (FindAllResponse);
+  rpc UpdateUser(UpdateUserRequest) returns (UserResponse);
+  rpc DeleteUser(DeleteUserRequest) returns (UserResponse);
+}

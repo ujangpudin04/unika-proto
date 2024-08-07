@@ -1,0 +1,425 @@
+swagger: "2.0"
+info:
+  title: proto/user/user.proto
+  version: version not set
+tags:
+  - name: UserService
+  - name: ChatService
+  - name: PaymentService
+  - name: HelloService
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /chat.ChatService/Chat:
+    post:
+      operationId: ChatService_Chat
+      responses:
+        "200":
+          description: A successful response.(streaming responses)
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: '#/definitions/chatChatMessage'
+              error:
+                $ref: '#/definitions/rpcStatus'
+            title: Stream result of chatChatMessage
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: body
+          description: ' (streaming inputs)'
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/chatChatMessage'
+      tags:
+        - ChatService
+  /hello.HelloService/SayHello:
+    post:
+      operationId: HelloService_SayHello
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/helloHelloResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/helloHelloRequest'
+      tags:
+        - HelloService
+  /hello.HelloService/SayHelloContinuous:
+    post:
+      operationId: HelloService_SayHelloContinuous
+      responses:
+        "200":
+          description: A successful response.(streaming responses)
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: '#/definitions/helloHelloResponse'
+              error:
+                $ref: '#/definitions/rpcStatus'
+            title: Stream result of helloHelloResponse
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: body
+          description: ' (streaming inputs)'
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/helloHelloRequest'
+      tags:
+        - HelloService
+  /hello.HelloService/SayHelloToEveryone:
+    post:
+      operationId: HelloService_SayHelloToEveryone
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/helloHelloResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: body
+          description: ' (streaming inputs)'
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/helloHelloRequest'
+      tags:
+        - HelloService
+  /hello.HelloService/SayManyHellos:
+    post:
+      operationId: HelloService_SayManyHellos
+      responses:
+        "200":
+          description: A successful response.(streaming responses)
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: '#/definitions/helloHelloResponse'
+              error:
+                $ref: '#/definitions/rpcStatus'
+            title: Stream result of helloHelloResponse
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/helloHelloRequest'
+      tags:
+        - HelloService
+  /payment.PaymentService/ProcessPayment:
+    post:
+      operationId: PaymentService_ProcessPayment
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/paymentPaymentResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/paymentPaymentRequest'
+      tags:
+        - PaymentService
+  /user.UserService/DeleteUser:
+    post:
+      operationId: UserService_DeleteUser
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/userUserResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/userDeleteUserRequest'
+      tags:
+        - UserService
+  /user.UserService/FindAllUser:
+    post:
+      operationId: UserService_FindAllUser
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/userFindAllResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/userPageUserRequest'
+      tags:
+        - UserService
+  /user.UserService/GetUser:
+    post:
+      operationId: UserService_GetUser
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/userUserResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/userGetUserRequest'
+      tags:
+        - UserService
+  /user.UserService/Login:
+    post:
+      operationId: UserService_Login
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/userUserResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/userLoginRequest'
+      tags:
+        - UserService
+  /user.UserService/Register:
+    post:
+      operationId: UserService_Register
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/userUserResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/userRegisterRequest'
+      tags:
+        - UserService
+  /user.UserService/UpdateUser:
+    post:
+      operationId: UserService_UpdateUser
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/userUserResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/userUpdateUserRequest'
+      tags:
+        - UserService
+definitions:
+  chatChatMessage:
+    type: object
+    properties:
+      sender:
+        type: string
+      message:
+        type: string
+      timestamp:
+        type: string
+  helloHelloRequest:
+    type: object
+    properties:
+      name:
+        type: string
+      age:
+        type: integer
+        format: int64
+  helloHelloResponse:
+    type: object
+    properties:
+      greet:
+        type: string
+  paymentPaymentRequest:
+    type: object
+    properties:
+      userId:
+        type: string
+      amount:
+        type: number
+        format: double
+      currency:
+        type: string
+  paymentPaymentResponse:
+    type: object
+    properties:
+      success:
+        type: boolean
+      transactionId:
+        type: string
+      message:
+        type: string
+  protobufAny:
+    type: object
+    properties:
+      '@type':
+        type: string
+    additionalProperties: {}
+  rpcStatus:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      details:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/protobufAny'
+  userDeleteUserRequest:
+    type: object
+    properties:
+      id:
+        type: string
+  userFindAllResponse:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      data:
+        $ref: '#/definitions/userUsers'
+  userGetUserRequest:
+    type: object
+    properties:
+      id:
+        type: string
+  userLoginRequest:
+    type: object
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+  userPageUserRequest:
+    type: object
+    properties:
+      id:
+        type: string
+  userRegisterRequest:
+    type: object
+    properties:
+      username:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      confirmPassword:
+        type: string
+  userUpdateUserRequest:
+    type: object
+    properties:
+      id:
+        type: string
+      username:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+  userUser:
+    type: object
+    properties:
+      id:
+        type: string
+      username:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      token:
+        type: string
+      created_at:
+        type: string
+      updated_at:
+        type: string
+  userUserResponse:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      data:
+        $ref: '#/definitions/userUser'
+  userUsers:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/userUser'
