@@ -61,8 +61,6 @@ protoc-go-gateway:
 	--grpc-gateway_opt standalone=true \
 	--grpc-gateway_opt generate_unbound_methods=true \
 	./proto/user/*.proto \
-	./proto/chat/*.proto \
-	./proto/payment/*.proto \
 	./proto/hello/*.proto \
 
 .PHONY: protoc-openapiv2-gateway
@@ -75,8 +73,6 @@ protoc-openapiv2-gateway:
 	--openapiv2_opt allow_merge=true \
 	--openapiv2_opt merge_file_name=merged \
   	./proto/user/*.proto \
-	./proto/chat/*.proto \
-	./proto/payment/*.proto \
 	./proto/hello/*.proto \
 
 
