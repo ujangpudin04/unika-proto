@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package hello;
 
-option go_package = "github.com/ujangpudin04/unika/protogen/go/hello";
+option go_package = "github.com/ujangpudin04/unika-proto/protogen/go/hello";
 
 message HelloRequest { 
   string name = 1;

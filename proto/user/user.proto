@@ -4,7 +4,7 @@ package user;
 
 import "proto/google/type/datetime.proto";
 
-option go_package = "github.com/ujangpudin04/unika/protogen/go/user";
+option go_package = "github.com/ujangpudin04/unika-proto/protogen/go/user";
 
 
 message User {
@@ -13,8 +13,9 @@ message User {
   string email = 3;
   string password=4;
   string token=5;
-  string created_at =6 [json_name="created_at"];
-  string updated_at =7 [json_name="updated_at"];
+  uint32 age=6;
+  google.type.DateTime created_at =7 [json_name="created_at"];
+  google.type.DateTime updated_at =8 [json_name="updated_at"];
 }
 
 
