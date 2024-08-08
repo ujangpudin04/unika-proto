@@ -2,7 +2,9 @@ syntax = "proto3";
 
 package user;
 
-import "proto/google/type/datetime.proto";
+// import "google/protobuf/timestamp.proto";
+import "google/type/datetime.proto";
+
 
 option go_package = "github.com/ujangpudin04/unika-proto/protogen/go/user";
 
