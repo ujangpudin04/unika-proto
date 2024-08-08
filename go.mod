@@ -1,6 +1,8 @@
 module github.com/ujangpudin04/unika-proto
 
 go 1.21.3
+<<<<<<< HEAD
+=======
 
 require (
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.21.0
@@ -16,3 +18,4 @@ require (
 	google.golang.org/genproto/googleapis/api v0.0.0-20240730163845-b1a4ccb954bf // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20240730163845-b1a4ccb954bf // indirect
 )
+>>>>>>> c67d8378ec2a78bb993f9dc88fe9e90134a003bd
