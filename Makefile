@@ -6,27 +6,26 @@ OS := $(shell uname -s | tr '[:upper:]' '[:lower:]')
 
 .PHONY: clean
 clean:
-ifeq ($(OS), windows_nt)
+ifeq ($(OS), Windows_NT)
 	if exist "protogen" rd /s /q protogen
 	mkdir protogen\go
 else
-	rm -rf ./protogen 
+	rm -fR ./protogen 
 	mkdir -p ./protogen/go
 endif
 
 
 .PHONY: protoc-go
 protoc-go:
-	protoc -I . \
-		-I ./proto \
-		--go_opt=module=${GO_MODULE} --go_out=. \
-		--go-grpc_opt=module=${GO_MODULE} --go-grpc_out=. \
-		./proto/user/*.proto \
-		./proto/hello/*.proto \
-		./proto/google/type/*.proto # <-- Make sure this line is included to explicitly point to the directory
+	protoc --go_opt=module=${GO_MODULE} --go_out=. \
+	--go-grpc_opt=module=${GO_MODULE} --go-grpc_out=. \
+	./proto/user/*.proto \
+	./proto/hello/*.proto \
+
 
 .PHONY: build
 build: clean protoc-go
+
 
 .PHONY: pipeline-init
 pipeline-init:
@@ -34,8 +33,10 @@ pipeline-init:
 	go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 	go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 
+
 .PHONY: pipeline-build
 pipeline-build: pipeline-init build
+
 
 # gRPC Gateway
 .PHONY: clean-gateway
@@ -45,7 +46,7 @@ ifeq ($(OS), windows_nt)
 	mkdir protogen\gateway\go
 	mkdir protogen\gateway\openapiv2
 else
-	rm -rf ./protogen/gateway
+	rm -fR ./protogen/gateway
 	mkdir -p ./protogen/gateway/go
 	mkdir -p ./protogen/gateway/openapiv2
 endif
@@ -53,31 +54,27 @@ endif
 .PHONY: protoc-go-gateway
 protoc-go-gateway:
 	protoc -I . \
-		-I ./proto \
-		--grpc-gateway_out ./protogen/gateway/go \
-		--grpc-gateway_opt logtostderr=true \
-		--grpc-gateway_opt paths=source_relative \
-		--grpc-gateway_opt grpc_api_configuration=./grpc-gateway/config.yml \
-		--grpc-gateway_opt standalone=true \
-		--grpc-gateway_opt generate_unbound_methods=true \
-		./proto/user/*.proto \
-		./proto/hello/*.proto \
-		./proto/google/type/*.proto # <-- Ensure this is included as well
+	--grpc-gateway_out ./protogen/gateway/go \
+	--grpc-gateway_opt logtostderr=true \
+	--grpc-gateway_opt paths=source_relative \
+	--grpc-gateway_opt grpc_api_configuration=./grpc-gateway/config.yml \
+	--grpc-gateway_opt standalone=true \
+	--grpc-gateway_opt generate_unbound_methods=true \
+	./proto/user/*.proto \
+	./proto/hello/*.proto \
 
 .PHONY: protoc-openapiv2-gateway
 protoc-openapiv2-gateway:
-	protoc -I . \
-		-I ./proto \
-		--openapiv2_out ./protogen/gateway/openapiv2 \
-		--openapiv2_opt logtostderr=true \
-		--openapiv2_opt output_format=yaml \
-		--openapiv2_opt grpc_api_configuration=./grpc-gateway/config.yml \
-		--openapiv2_opt generate_unbound_methods=true \
-		--openapiv2_opt allow_merge=true \
-		--openapiv2_opt merge_file_name=merged \
-		./proto/user/*.proto \
-		./proto/hello/*.proto \
-		./proto/google/type/*.proto # <-- Same here
+	protoc -I . --openapiv2_out ./protogen/gateway/openapiv2 \
+	--openapiv2_opt logtostderr=true \
+	--openapiv2_opt output_format=yaml \
+	--openapiv2_opt grpc_api_configuration=./grpc-gateway/config.yml \
+	--openapiv2_opt generate_unbound_methods=true \
+	--openapiv2_opt allow_merge=true \
+	--openapiv2_opt merge_file_name=merged \
+  	./proto/user/*.proto \
+	./proto/hello/*.proto \
+
 
 .PHONY: build-gateway
 build-gateway: clean-gateway protoc-go-gateway
@@ -89,3 +86,4 @@ pipeline-init-gateway:
 
 .PHONY: pipeline-build-gateway
 pipeline-build-gateway: pipeline-init-gateway build-gateway protoc-openapiv2-gateway
+

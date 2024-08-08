@@ -2,7 +2,6 @@ syntax = "proto3";
 
 package user;
 
-import "google/protobuf/timestamp.proto";
 import "proto/google/type/datetime.proto";
 
 
