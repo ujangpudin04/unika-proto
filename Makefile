@@ -22,7 +22,6 @@ protoc-go:
 	./proto/user/*.proto \
 	./proto/hello/*.proto \
 
-
 .PHONY: build
 build: clean protoc-go
 
