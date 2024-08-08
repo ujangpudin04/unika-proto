@@ -17,11 +17,11 @@ endif
 
 .PHONY: protoc-go
 protoc-go:
+
 	protoc --go_opt=module=${GO_MODULE} --go_out=. \
 	--go-grpc_opt=module=${GO_MODULE} --go-grpc_out=. \
 	./proto/user/*.proto \
 	./proto/hello/*.proto \
-
 
 .PHONY: build
 build: clean protoc-go
@@ -54,6 +54,7 @@ endif
 .PHONY: protoc-go-gateway
 protoc-go-gateway:
 	protoc -I . \
+
 	--grpc-gateway_out ./protogen/gateway/go \
 	--grpc-gateway_opt logtostderr=true \
 	--grpc-gateway_opt paths=source_relative \
@@ -86,4 +87,3 @@ pipeline-init-gateway:
 
 .PHONY: pipeline-build-gateway
 pipeline-build-gateway: pipeline-init-gateway build-gateway protoc-openapiv2-gateway
-
