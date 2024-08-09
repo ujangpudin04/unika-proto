@@ -14,8 +14,8 @@ message User {
   string password=4;
   string token=5;
   uint32 age=6;
-  DateTime created_at =7 [json_name="created_at"];
-  DateTime updated_at =8 [json_name="updated_at"];
+  google.type.DateTime created_at =7 [json_name="created_at"];
+  google.type.DateTime updated_at =8 [json_name="updated_at"];
 }
 
 
