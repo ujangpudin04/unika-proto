@@ -57,10 +57,10 @@ message PageUserRequest {
 
 
 service UserService {
-  rpc Register(RegisterRequest) returns (Response);
-  rpc Login(LoginRequest) returns (Response);
-  rpc GetUser(GetUserRequest) returns (Response);
-  rpc FindAllUser(PageUserRequest) returns (Response);
-  rpc UpdateUser(UpdateUserRequest) returns (Response);
-  rpc DeleteUser(DeleteUserRequest) returns (Response);
+  rpc Register(RegisterRequest) returns (response.Response);
+  rpc Login(LoginRequest) returns (response.Response);
+  rpc GetUser(GetUserRequest) returns (response.Response);
+  rpc FindAllUser(PageUserRequest) returns (response.Response);
+  rpc UpdateUser(UpdateUserRequest) returns (response.Response);
+  rpc DeleteUser(DeleteUserRequest) returns (response.Response);
 }
