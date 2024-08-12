@@ -4,7 +4,7 @@ package response;
 
 import "google/protobuf/any.proto";
 
-option go_package = "github.com/ujangpudin04/unika/protogen/go/response";
+option go_package = "github.com/ujangpudin04/unika-proto/protogen/go/response";
 
 
 message Response{
