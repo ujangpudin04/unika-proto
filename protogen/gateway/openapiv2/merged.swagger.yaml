@@ -111,7 +111,7 @@ paths:
         "200":
           description: A successful response.
           schema:
-            $ref: '#/definitions/userUserResponse'
+            $ref: '#/definitions/responseResponse'
         default:
           description: An unexpected error response.
           schema:
@@ -131,7 +131,7 @@ paths:
         "200":
           description: A successful response.
           schema:
-            $ref: '#/definitions/userFindAllResponse'
+            $ref: '#/definitions/responseResponse'
         default:
           description: An unexpected error response.
           schema:
@@ -151,7 +151,7 @@ paths:
         "200":
           description: A successful response.
           schema:
-            $ref: '#/definitions/userUserResponse'
+            $ref: '#/definitions/responseResponse'
         default:
           description: An unexpected error response.
           schema:
@@ -171,7 +171,7 @@ paths:
         "200":
           description: A successful response.
           schema:
-            $ref: '#/definitions/userUserResponse'
+            $ref: '#/definitions/responseResponse'
         default:
           description: An unexpected error response.
           schema:
@@ -191,7 +191,7 @@ paths:
         "200":
           description: A successful response.
           schema:
-            $ref: '#/definitions/userUserResponse'
+            $ref: '#/definitions/responseResponse'
         default:
           description: An unexpected error response.
           schema:
@@ -211,7 +211,7 @@ paths:
         "200":
           description: A successful response.
           schema:
-            $ref: '#/definitions/userUserResponse'
+            $ref: '#/definitions/responseResponse'
         default:
           description: An unexpected error response.
           schema:
@@ -243,7 +243,127 @@ definitions:
     properties:
       '@type':
         type: string
+        description: |-
+          A URL/resource name that uniquely identifies the type of the serialized
+          protocol buffer message. This string must contain at least
+          one "/" character. The last segment of the URL's path must represent
+          the fully qualified name of the type (as in
+          `path/google.protobuf.Duration`). The name should be in a canonical form
+          (e.g., leading "." is not accepted).
+
+          In practice, teams usually precompile into the binary all types that they
+          expect it to use in the context of Any. However, for URLs which use the
+          scheme `http`, `https`, or no scheme, one can optionally set up a type
+          server that maps type URLs to message definitions as follows:
+
+          * If no scheme is provided, `https` is assumed.
+          * An HTTP GET on the URL must yield a [google.protobuf.Type][]
+            value in binary format, or produce an error.
+          * Applications are allowed to cache lookup results based on the
+            URL, or have them precompiled into a binary to avoid any
+            lookup. Therefore, binary compatibility needs to be preserved
+            on changes to types. (Use versioned type names to manage
+            breaking changes.)
+
+          Note: this functionality is not currently available in the official
+          protobuf release, and it is not used for type URLs beginning with
+          type.googleapis.com.
+
+          Schemes other than `http`, `https` (or the empty scheme) might be
+          used with implementation specific semantics.
     additionalProperties: {}
+    description: |-
+      `Any` contains an arbitrary serialized protocol buffer message along with a
+      URL that describes the type of the serialized message.
+
+      Protobuf library provides support to pack/unpack Any values in the form
+      of utility functions or additional generated methods of the Any type.
+
+      Example 1: Pack and unpack a message in C++.
+
+          Foo foo = ...;
+          Any any;
+          any.PackFrom(foo);
+          ...
+          if (any.UnpackTo(&foo)) {
+            ...
+          }
+
+      Example 2: Pack and unpack a message in Java.
+
+          Foo foo = ...;
+          Any any = Any.pack(foo);
+          ...
+          if (any.is(Foo.class)) {
+            foo = any.unpack(Foo.class);
+          }
+
+       Example 3: Pack and unpack a message in Python.
+
+          foo = Foo(...)
+          any = Any()
+          any.Pack(foo)
+          ...
+          if any.Is(Foo.DESCRIPTOR):
+            any.Unpack(foo)
+            ...
+
+       Example 4: Pack and unpack a message in Go
+
+           foo := &pb.Foo{...}
+           any, err := ptypes.MarshalAny(foo)
+           ...
+           foo := &pb.Foo{}
+           if err := ptypes.UnmarshalAny(any, foo); err != nil {
+             ...
+           }
+
+      The pack methods provided by protobuf library will by default use
+      'type.googleapis.com/full.type.name' as the type URL and the unpack
+      methods only use the fully qualified type name after the last '/'
+      in the type URL, for example "foo.bar.com/x/y.z" will yield type
+      name "y.z".
+
+
+      JSON
+      ====
+      The JSON representation of an `Any` value uses the regular
+      representation of the deserialized, embedded message, with an
+      additional field `@type` which contains the type URL. Example:
+
+          package google.profile;
+          message Person {
+            string first_name = 1;
+            string last_name = 2;
+          }
+
+          {
+            "@type": "type.googleapis.com/google.profile.Person",
+            "firstName": <string>,
+            "lastName": <string>
+          }
+
+      If the embedded message type is well-known and has a custom JSON
+      representation, that representation will be embedded adding a field
+      `value` which holds the custom JSON in addition to the `@type`
+      field. Example (for message [google.protobuf.Duration][]):
+
+          {
+            "@type": "type.googleapis.com/google.protobuf.Duration",
+            "value": "1.212s"
+          }
+  responseResponse:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      error:
+        type: string
+      data:
+        $ref: '#/definitions/protobufAny'
   rpcStatus:
     type: object
     properties:
@@ -257,69 +377,11 @@ definitions:
         items:
           type: object
           $ref: '#/definitions/protobufAny'
-  typeDateTime:
-    type: object
-    properties:
-      year:
-        type: integer
-        format: int32
-        description: "Optional. Year of date. Must be from 1 to 9999, or 0 if specifying a\r\ndatetime without a year."
-      month:
-        type: integer
-        format: int32
-        description: Required. Month of year. Must be from 1 to 12.
-      day:
-        type: integer
-        format: int32
-        description: "Required. Day of month. Must be from 1 to 31 and valid for the year and\r\nmonth."
-      hours:
-        type: integer
-        format: int32
-        description: "Required. Hours of day in 24 hour format. Should be from 0 to 23. An API\r\nmay choose to allow the value \"24:00:00\" for scenarios like business\r\nclosing time."
-      minutes:
-        type: integer
-        format: int32
-        description: Required. Minutes of hour of day. Must be from 0 to 59.
-      seconds:
-        type: integer
-        format: int32
-        description: "Required. Seconds of minutes of the time. Must normally be from 0 to 59. An\r\nAPI may allow the value 60 if it allows leap-seconds."
-      nanos:
-        type: integer
-        format: int32
-        description: "Required. Fractions of seconds in nanoseconds. Must be from 0 to\r\n999,999,999."
-      utcOffset:
-        type: string
-        description: "UTC offset. Must be whole seconds, between -18 hours and +18 hours.\r\nFor example, a UTC offset of -4:00 would be represented as\r\n{ seconds: -14400 }."
-      timeZone:
-        $ref: '#/definitions/typeTimeZone'
-        description: Time zone.
-    description: "Represents civil time (or occasionally physical time).\r\n\r\nThis type can represent a civil time in one of a few possible ways:\r\n\r\n * When utc_offset is set and time_zone is unset: a civil time on a calendar\r\n   day with a particular offset from UTC.\r\n * When time_zone is set and utc_offset is unset: a civil time on a calendar\r\n   day in a particular time zone.\r\n * When neither time_zone nor utc_offset is set: a civil time on a calendar\r\n   day in local time.\r\n\r\nThe date is relative to the Proleptic Gregorian Calendar.\r\n\r\nIf year is 0, the DateTime is considered not to have a specific year. month\r\nand day must have valid, non-zero values.\r\n\r\nThis type may also be used to represent a physical time if all the date and\r\ntime fields are set and either case of the `time_offset` oneof is set.\r\nConsider using `Timestamp` message for physical time instead. If your use\r\ncase also would like to store the user's timezone, that can be done in\r\nanother field.\r\n\r\nThis type is more flexible than some applications may want. Make sure to\r\ndocument and validate your application's limitations."
-  typeTimeZone:
-    type: object
-    properties:
-      id:
-        type: string
-        description: IANA Time Zone Database time zone, e.g. "America/New_York".
-      version:
-        type: string
-        description: Optional. IANA Time Zone Database version number, e.g. "2019a".
-    description: "Represents a time zone from the\r\n[IANA Time Zone Database](https://www.iana.org/time-zones)."
   userDeleteUserRequest:
     type: object
     properties:
       id:
         type: string
-  userFindAllResponse:
-    type: object
-    properties:
-      code:
-        type: integer
-        format: int32
-      message:
-        type: string
-      data:
-        $ref: '#/definitions/userUsers'
   userGetUserRequest:
     type: object
     properties:
@@ -335,7 +397,7 @@ definitions:
   userPageUserRequest:
     type: object
     properties:
-      id:
+      page:
         type: string
   userRegisterRequest:
     type: object
@@ -359,41 +421,3 @@ definitions:
         type: string
       password:
         type: string
-  userUser:
-    type: object
-    properties:
-      id:
-        type: string
-      username:
-        type: string
-      email:
-        type: string
-      password:
-        type: string
-      token:
-        type: string
-      age:
-        type: integer
-        format: int64
-      created_at:
-        $ref: '#/definitions/typeDateTime'
-      updated_at:
-        $ref: '#/definitions/typeDateTime'
-  userUserResponse:
-    type: object
-    properties:
-      code:
-        type: integer
-        format: int32
-      message:
-        type: string
-      data:
-        $ref: '#/definitions/userUser'
-  userUsers:
-    type: object
-    properties:
-      data:
-        type: array
-        items:
-          type: object
-          $ref: '#/definitions/userUser'
