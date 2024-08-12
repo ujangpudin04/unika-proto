@@ -3,6 +3,7 @@ syntax = "proto3";
 package user;
 
 import "proto/google/type/datetime.proto";
+import "proto/response/response.proto";
 
 option go_package = "github.com/ujangpudin04/unika-proto/protogen/go/user";
 
@@ -51,33 +52,15 @@ message DeleteUserRequest {
 }
 
 message PageUserRequest {
-  string id = 1;
-}
-
-
-message UserResponse {
-  int32 code = 1;
-  string message = 2;
-  User data = 3;
-}
-
-message Users {
-  repeated User data=2;
-}
-
-
-message FindAllResponse {
-  int32 code= 1;
-  string message= 2;
-  Users data=3;
+  string page = 1;
 }
 
 
 service UserService {
-  rpc Register(RegisterRequest) returns (UserResponse);
-  rpc Login(LoginRequest) returns (UserResponse);
-  rpc GetUser(GetUserRequest) returns (UserResponse);
-  rpc FindAllUser(PageUserRequest) returns (FindAllResponse);
-  rpc UpdateUser(UpdateUserRequest) returns (UserResponse);
-  rpc DeleteUser(DeleteUserRequest) returns (UserResponse);
+  rpc Register(RegisterRequest) returns (response.Response);
+  rpc Login(LoginRequest) returns (response.Response);
+  rpc GetUser(GetUserRequest) returns (response.Response);
+  rpc FindAllUser(PageUserRequest) returns (response.Response);
+  rpc UpdateUser(UpdateUserRequest) returns (response.Response);
+  rpc DeleteUser(DeleteUserRequest) returns (response.Response);
 }

@@ -20,6 +20,7 @@ protoc-go:
 	protoc --go_opt=module=${GO_MODULE} --go_out=. \
 	--go-grpc_opt=module=${GO_MODULE} --go-grpc_out=. \
 	./proto/user/*.proto \
+	./proto/response/*.proto \
 	./proto/hello/*.proto \
 
 .PHONY: build
@@ -60,6 +61,7 @@ protoc-go-gateway:
 	--grpc-gateway_opt standalone=true \
 	--grpc-gateway_opt generate_unbound_methods=true \
 	./proto/user/*.proto \
+	./proto/response/*.proto \
 	./proto/hello/*.proto \
 
 .PHONY: protoc-openapiv2-gateway
@@ -72,6 +74,7 @@ protoc-openapiv2-gateway:
 	--openapiv2_opt allow_merge=true \
 	--openapiv2_opt merge_file_name=merged \
   	./proto/user/*.proto \
+	./proto/response/*.proto \
 	./proto/hello/*.proto \
 
 
